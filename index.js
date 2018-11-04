@@ -1,6 +1,7 @@
 var EventEmitter = require('events').EventEmitter
 var collect = require('collect-stream')
 var through = require('through2')
+var readonly = require('read-only-stream')
 
 module.exports = List
 
