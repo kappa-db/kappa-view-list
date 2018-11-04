@@ -20,7 +20,7 @@ function List (db, mapFn, opts) {
           ops = ops.map(function (op) {
             return {
               type: 'put',
-              key: 'k!' + op,
+              key: op,
               value: msg.key + '@' + msg.seq
             }
           })
@@ -71,7 +71,7 @@ function List (db, mapFn, opts) {
         })
 
         this.ready(function () {
-          db.createReadStream({gt:'k!!', lt:'k!~', limit: opts.limit}).pipe(t)
+          db.createReadStream(opts).pipe(t)
         })
 
         if (cb) collect(t, cb)
