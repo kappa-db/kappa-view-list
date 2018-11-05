@@ -18,6 +18,7 @@ function List (db, mapFn, opts) {
       for (var i = 0; i < msgs.length; i++) {
         var msg = msgs[i]
         mapFn(msg, function (err, ops) {
+          if (!ops) ops = []
           ops = ops.map(function (op) {
             return {
               type: 'put',
