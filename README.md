@@ -111,6 +111,11 @@ Fetching all entries with timestamps between 2017 and 2018 could look like this:
 var stream = core.api.timestamp.read({gte: '2017-00-00T00:00:000Z', lt: '2018-00-00T00:00:000Z'})
 ```
 
+### core.list.tail(size, fn)
+
+Listen for updates to the upper end of the list, a window of size `size`. `fn`
+is called with a list of messages.
+
 ### core.list.onInsert(fn)
 
 Subscribe to updates to every list insertion. The function `fn` is called as `fn(key, value)`.

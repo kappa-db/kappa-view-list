@@ -59,6 +59,7 @@ function List (db, mapFn, opts) {
         opts = opts || {}
 
         var t = through.obj(function (entry, _, next) {
+          if (entry.key === '!!state') return next()
           var id = entry.value
           var feed = core._logs.feed(id.split('@')[0])
           var seq = Number(id.split('@')[1])
@@ -72,7 +73,7 @@ function List (db, mapFn, opts) {
           })
         })
 
-        this.ready(function () {
+        core.ready(function () {
           db.createReadStream(opts).pipe(t)
         })
 
@@ -82,15 +83,26 @@ function List (db, mapFn, opts) {
 
       onInsert: function (core, cb) {
         events.on('insert', cb)
+      },
+
+      tail: function (core, size, fn) {
+        events.on('insert', function (msg) {
+          idx.api.read(core, {limit:size}, function (err, msgs) {
+            var found = msgs.filter(function (m) {
+              return msg.key === m.key && m.seq === m.seq
+            }).length > 0
+            if (found) fn(msgs)
+          })
+        })
       }
     },
 
     storeState: function (state, cb) {
-      db.put('state', state, cb)
+      db.put('!!state', state, cb)
     },
 
     fetchState: function (cb) {
-      db.get('state', function (err, state) {
+      db.get('!!state', function (err, state) {
         if (err && err.notFound) cb()
         else if (err) cb(err)
         else cb(null, state)
