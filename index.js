@@ -2,12 +2,15 @@ var EventEmitter = require('events').EventEmitter
 var collect = require('collect-stream')
 var through = require('through2')
 var readonly = require('read-only-stream')
+var sub = require('subleveldown')
 
 module.exports = List
 
 function List (db, mapFn, opts) {
   var events = new EventEmitter()
   opts = opts || {}
+
+  var ldb = sub(db, 'd')
 
   var idx = {
     maxBatch: opts.maxBatch || 100,
@@ -37,7 +40,7 @@ function List (db, mapFn, opts) {
           return next(err)
         }
         allOps.push.apply(allOps, ops)
-        if (!--pending) db.batch(allOps, next)
+        if (!--pending) ldb.batch(allOps, next)
       }
     },
 
@@ -74,7 +77,7 @@ function List (db, mapFn, opts) {
         })
 
         core.ready(function () {
-          db.createReadStream(opts).pipe(t)
+          ldb.createReadStream(opts).pipe(t)
         })
 
         if (cb) collect(t, cb)
@@ -98,11 +101,11 @@ function List (db, mapFn, opts) {
     },
 
     storeState: function (state, cb) {
-      db.put('!!state', state, cb)
+      db.put('state', state, cb)
     },
 
     fetchState: function (cb) {
-      db.get('!!state', function (err, state) {
+      db.get('state', function (err, state) {
         if (err && err.notFound) cb()
         else if (err) cb(err)
         else cb(null, state)

@@ -15,9 +15,10 @@
   },
   "keywords": [],
   "dependencies": {
+    "collect-stream": "^1.2.1",
     "read-only-stream": "^2.0.0",
-    "through2": "^2.0.3",
-    "collect-stream": "^1.2.1"
+    "subleveldown": "^3.0.1",
+    "through2": "^2.0.3"
   },
   "devDependencies": {
     "kappa-core": "^2.3.2",
