@@ -90,11 +90,11 @@ function List (db, mapFn, opts) {
 
       tail: function (core, size, fn) {
         events.on('insert', function (msg) {
-          idx.api.read(core, {limit:size}, function (err, msgs) {
+          idx.api.read(core, {limit:size,reverse:true}, function (err, msgs) {
             var found = msgs.filter(function (m) {
               return msg.key === m.key && m.seq === m.seq
             }).length > 0
-            if (found) fn(msgs)
+            if (found) fn(msgs.reverse())
           })
         })
       }
