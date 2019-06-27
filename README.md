@@ -1,8 +1,10 @@
 # kappa-view-list
 
-> general purpose sorted list view for [kappa-core][kappa-core]
+> General purpose sorted list view for [kappa-core][kappa-core].
 
-TODO: description
+This view models a sorted list materialized view, on top of a set of
+append-only logs. It allows for reading subsets of entries from that sorted
+list, and tailing the end of it.
 
 ## Usage
 
@@ -12,7 +14,7 @@ Let's build a view that orders messages by their ISO timestamp:
 var memdb = require('memdb')
 var kappa = require('kappa-core')
 var ram = require('random-access-memory')
-var list = require('.')
+var list = require('kappa-view-list')
 
 var core = kappa(ram, { valueEncoding: 'json' })
 var idx = memdb()
