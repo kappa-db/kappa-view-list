@@ -23,7 +23,7 @@ test('timestamp', function (t) {
     { timestamp: '2018-12-04T07:00:00.524Z', id: 'foo', n: 12 }
   ]
 
-  core.feed('local', function (err, feed) {
+  core.writer('local', function (err, feed) {
     feed.append(docs, function (err, seq) {
       core.api.timestamp.read({ limit: 2 }, function (err, values) {
         t.error(err)
