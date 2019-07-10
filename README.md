@@ -25,7 +25,7 @@ var listIdx = list(idx, function (msg, next) {
 })
 core.use('timestamp', listIdx)
 
-core.feed('local', function (err, feed) {
+core.writer('local', function (err, feed) {
   var docs = [
     { timestamp: '2018-11-04T17:45:55.524Z', id: 'foo' },
     { timestamp: '2017-11-04T12:15:00.524Z', id: 'foo', n: 3 },
