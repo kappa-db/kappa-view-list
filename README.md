@@ -89,7 +89,8 @@ From here, you can use `core.use(name, view)` to install it into a
 ### [var rs = ]core.list.read([opts,] [cb])
 
 Returns a subset of the list. If no callback `cb` is given, a Readable stream
-`rs` is returned. Otherwise, results are given as a list via the callback `cb`.
+`rs` is returned. Otherwise, results are given as a list via the callback
+`cb(err, [msgs])`.
 
 Each result has the form
 
