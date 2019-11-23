@@ -117,7 +117,7 @@ var stream = core.api.timestamp.read({gte: '2017-00-00T00:00:000Z', lt: '2018-00
 ### core.list.tail(size, fn)
 
 Listen for updates to the upper end of the list, a window of size `size`. `fn`
-is called with a list of messages.
+is called with a list of messages, sorted from low to high.
 
 ### core.list.onInsert(fn)
 
