@@ -16,8 +16,8 @@
   "keywords": [],
   "dependencies": {
     "collect-stream": "^1.2.1",
+    "kappa-view": "^3.1.0",
     "read-only-stream": "^2.0.0",
-    "subleveldown": "^4.0.0",
     "through2": "^3.0.1"
   },
   "devDependencies": {
