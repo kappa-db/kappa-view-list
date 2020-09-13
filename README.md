@@ -86,7 +86,7 @@ From here, you can use `core.use(name, view)` to install it into a
 [kappa-core][kappa-core]. What follows are the APIs that get exposed if you did
 `core.use('list', view)`:
 
-### [var rs = ]core.list.read([opts,] [cb])
+### [var rs = ]core.api.list.read([opts,] [cb])
 
 Returns a subset of the list. If no callback `cb` is given, a Readable stream
 `rs` is returned. Otherwise, results are given as a list via the callback
@@ -114,12 +114,12 @@ Fetching all entries with timestamps between 2017 and 2018 could look like this:
 var stream = core.api.timestamp.read({gte: '2017-00-00T00:00:000Z', lt: '2018-00-00T00:00:000Z'})
 ```
 
-### core.list.tail(size, fn)
+### core.api.list.tail(size, fn)
 
 Listen for updates to the upper end of the list, a window of size `size`. `fn`
 is called with a list of messages, sorted from low to high.
 
-### core.list.onInsert(fn)
+### core.api.list.onInsert(fn)
 
 Subscribe to updates to every list insertion. The function `fn` is called as `fn(key, value)`.
 
