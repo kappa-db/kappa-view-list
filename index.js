@@ -88,7 +88,7 @@ function List (db, mapFn, opts) {
           events.on('insert', function (msg) {
             idx.api.read(core, {limit:size,reverse:true}, function (err, msgs) {
               var found = msgs.filter(function (m) {
-                return msg.key === m.key && m.seq === m.seq
+                return msg.key === m.key && msg.seq === m.seq
               }).length > 0
               if (found) fn(msgs.reverse())
             })
