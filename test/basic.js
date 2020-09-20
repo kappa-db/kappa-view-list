@@ -56,7 +56,7 @@ test('tail', function (t) {
     { timestamp: '2017' },
     { timestamp: '2018' },
     { timestamp: '2019' },
-    { timestamp: '2010' }
+    { timestamp: '2020' }
   ]
 
   var n = 0
@@ -68,7 +68,7 @@ test('tail', function (t) {
       case 0: t.deepEquals(msgs, [{timestamp:'2017'}]); break;
       case 1: t.deepEquals(msgs, [{timestamp:'2017'},{timestamp:'2018'}]); break;
       case 2: t.deepEquals(msgs, [{timestamp:'2018'},{timestamp:'2019'}]); break;
-      case 3: t.deepEquals(msgs, [{timestamp:'2018'},{timestamp:'2019'}]); break;
+      case 3: t.deepEquals(msgs, [{timestamp:'2019'},{timestamp:'2020'}]); break;
       default: t.fail('bad case')
     }
     ++n
