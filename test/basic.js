@@ -41,7 +41,7 @@ test('timestamp', function (t) {
 })
 
 test('tail', function (t) {
-  t.plan(4)
+  t.plan(3)
 
   var core = kappa(ram, { valueEncoding: 'json' })
   var idx = memdb()
@@ -63,12 +63,12 @@ test('tail', function (t) {
   var feed
 
   core.api.timestamp.tail(2, function (msgs) {
-    msgs = msgs.map(msg => msg.value)
+    messages = msgs.map(msg => msg.value)
     switch (n) {
-      case 0: t.deepEquals(msgs, [{timestamp:'2017'}]); break;
-      case 1: t.deepEquals(msgs, [{timestamp:'2017'},{timestamp:'2018'}]); break;
-      case 2: t.deepEquals(msgs, [{timestamp:'2018'},{timestamp:'2019'}]); break;
-      case 3: t.deepEquals(msgs, [{timestamp:'2018'},{timestamp:'2019'}]); break;
+      case 0: t.deepEquals(messages, [{timestamp:'2017'}]); break;
+      case 1: t.deepEquals(messages, [{timestamp:'2017'},{timestamp:'2018'}]); break;
+      case 2: t.deepEquals(messages, [{timestamp:'2018'},{timestamp:'2019'}]); break;
+      case 3: t.deepEquals(messages, [{timestamp:'2018'},{timestamp:'2019'}]); break; // never gets called because 2010 is not in the tail so this function doesnt get triggered
       default: t.fail('bad case')
     }
     ++n
